@@ -1,0 +1,131 @@
+﻿@page "/Adults"
+@using Assignment1.Models
+@using Assignment1.Data
+@using System.Collections
+@using Microsoft.AspNetCore.Mvc.Filters
+@inject IAdultData AdultData
+
+
+<h3>Adults</h3>
+<p>Filter by Id: 
+    <input type="number" @oninput="@((arg)=>FilterByAdultId(arg))" style="width: 50px"/>
+</p>
+<p>
+    Filter by hair color:
+    <select class="form-control selectpicker" @onchange="@((arg) => FilterByHairColor(arg))" style="width: 100px">
+        <option>Blond</option>
+        <option>Black</option>
+        <option>Leverpostej</option>
+        <option>White</option>
+        <option>Brown</option>
+    </select>
+</p>
+
+@if (adultsToShow == null)
+{
+    <p>
+        <em>Loading..</em>
+    </p>
+}
+else if (!adultsToShow.Any())
+{
+    <p>
+        <em>There are no adults in this list. Please add some.</em>
+    </p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Sex</th>
+            <th>Height</th>
+            <th>Weight</th>
+            <th>Eye Color</th>
+            <th>Hair Color</th>
+            <th>Remove</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in adultsToShow)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.Age</td>
+                <td>@item.Sex</td>
+                <td>@item.Height</td>
+                <td>@item.Weight</td>
+                <td>@item.EyeColor</td>
+                <td>@item.HairColor</td>
+                <td>
+                    <button @onclick="@(() => RemoveTodo(item.Id))">
+                        <i class="oi oi-trash" style="color: red"/>
+                    </button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IList<Adult> adults;
+    private IList<Adult> adultsToShow;
+
+    private int? filterById;
+    private string? filterByHairColor;
+
+    private void FilterByAdultId(ChangeEventArgs changeEventArgs)
+    {
+        filterById = null;
+        try
+        {
+            filterById = int.Parse(changeEventArgs.Value.ToString());
+        }
+        catch (Exception e)
+        {
+            
+        }
+        ExecuteFilter();
+    }
+
+    private void FilterByHairColor(ChangeEventArgs args)
+    {
+        filterByHairColor = null;
+        try
+        {
+            filterByHairColor = args.Value.ToString();
+        }
+        catch (Exception e)
+        {
+            
+        }
+        ExecuteFilter();
+    }
+
+    private void ExecuteFilter()
+    {
+        adultsToShow = adults.Where(t =>
+            (filterById != null && t.Id == filterById || filterById == null) &&
+            (filterByHairColor != null && t.HairColor == filterByHairColor || filterByHairColor == null)).ToList();
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        adults = AdultData.GetAdults();
+        adultsToShow = adults;
+    }
+
+    private void RemoveTodo(int AdultId)
+    {
+        Adult adultToRemove = adults.First(t => t.Id == AdultId);
+        AdultData.RemoveAdult(AdultId);
+        adults.Remove(adultToRemove);
+        adultsToShow.Remove(adultToRemove);
+    }
+}

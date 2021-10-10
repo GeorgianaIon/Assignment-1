@@ -1,0 +1,6 @@
+C:\Users\ionge\Desktop\VIA UNIVERSITY\3sem\DNP1\DNP1\Assignment1\obj\Debug\net5.0\Assignment1.csproj.AssemblyReference.cache
+C:\Users\ionge\Desktop\VIA UNIVERSITY\3sem\DNP1\DNP1\Assignment1\obj\Debug\net5.0\Assignment1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ionge\Desktop\VIA UNIVERSITY\3sem\DNP1\DNP1\Assignment1\obj\Debug\net5.0\Assignment1.AssemblyInfoInputs.cache
+C:\Users\ionge\Desktop\VIA UNIVERSITY\3sem\DNP1\DNP1\Assignment1\obj\Debug\net5.0\Assignment1.AssemblyInfo.cs
+C:\Users\ionge\Desktop\VIA UNIVERSITY\3sem\DNP1\DNP1\Assignment1\obj\Debug\net5.0\Assignment1.csproj.CoreCompileInputs.cache
+C:\Users\ionge\Desktop\VIA UNIVERSITY\3sem\DNP1\DNP1\Assignment1\obj\Debug\net5.0\Assignment1.MvcApplicationPartsAssemblyInfo.cache
